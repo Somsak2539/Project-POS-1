@@ -41,8 +41,6 @@ class CategoryListFilter(admin.SimpleListFilter): # สร้าง class ให
 
 class ManageProduct2(admin.ModelAdmin):
     
-
-    
     list_display = ["id","image_preview","name","stock","price","profitprice","barcode","is_trending",]
     list_editable = [ "is_trending", "stock","profitprice","price"]
     list_per_page = 20  # แสดงข้อมูล 20 รายการต่อหน้า
@@ -53,6 +51,12 @@ class ManageProduct2(admin.ModelAdmin):
     actions = ["export_as_csv", "export_as_excel", "mark_as_trending", "mark_as_not_trending"]
     
    
+    class Media:
+        js = [
+            "https://unpkg.com/html5-qrcode",  # ไลบรารีกล้อง
+            "js/barcode_scanner.js",           # ไฟล์ JavaScript ของเรา
+        ]
+
     
   
 
