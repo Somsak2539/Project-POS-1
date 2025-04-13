@@ -1,10 +1,10 @@
 
 
 // ------------------------------------------------------------------------------การทดสอบ Api------------------------------------------------
-const apiUrl = "http://127.0.0.1:8080/blog/list/";
+//const apiUrl = "http://127.0.0.1:8080/blog/list/";
 
 
-
+const apiUrl = "http://localhost:8080/blog/list/";
 
 
 
@@ -220,6 +220,8 @@ fetch(apiUrl)
     const row24 = document.getElementById("row24");
     const row25 = document.getElementById("row25");
     const row26 = document.getElementById("row26");
+    const ShowRecipe = document.getElementById("ShowRecipe");
+
 
     //---------------------------------------ทำการทดสอบ API สำหรับการทำงานผ่าน django   -----------------------------------------------
 
@@ -331,6 +333,112 @@ fetch(apiUrl)
     // สิ่งที่ต้องทำการดิ่งมาคือ ชื่อสินค้า, barcode,หน่วยนับ,ราคา,stoc**************
 
     //------------------------------------ทดลองสำหรับ QR------------------------------------------
+
+
+
+
+
+
+    // ✅ กำหนดตัวแปรเก็บรายการสินค้า
+    /*let ajaxStockAdjustments = [];
+
+    // ✅ ฟังก์ชันเพิ่ม Event Listener สำหรับปุ่มลบ
+    function addRemoveEvent() {
+      document.querySelectorAll(".remove-item").forEach((button) => {
+        button.addEventListener("click", function () {
+          let row = this.closest("tr");
+          let productName = row.querySelector("td:nth-child(3)").textContent.trim(); // เอาชื่อสินค้าแบบ trim
+
+          // ✅ ลบสินค้าจาก stockAdjustments
+          ajaxStockAdjustments = ajaxStockAdjustments.filter(item => item.product !== productName);
+
+          console.log("✅ ajaxStockAdjustments หลังลบ:", ajaxStockAdjustments);
+
+          // ✅ บันทึกค่าใหม่ไปยัง localStorage
+          localStorage.setItem("stockAdjustments", JSON.stringify(ajaxStockAdjustments));
+
+          // ✅ ลบแถวออกจากตาราง
+          row.remove();
+
+          // ✅ อัปเดตยอดรวม
+          updateTotalAmount();
+        });
+      });
+    }
+
+    // ✅ ใช้ Event Delegation แทนการผูก Event ทีละปุ่ม (แก้ปัญหากรณีปุ่มถูกสร้างใหม่)
+    document.addEventListener("click", function (event) {
+      if (event.target.classList.contains("remove-item")) {
+        let row = event.target.closest("tr");
+        let productName = row.querySelector("td:nth-child(3)").textContent.trim();
+
+        // ✅ ลบสินค้าจาก stockAdjustments
+        stockAdjustments = stockAdjustments.filter(item => item.product !== productName);
+        console.log("✅ ajaxStockAdjustments หลังลบ:", ajaxStockAdjustments);
+
+        // ✅ บันทึกค่าใหม่ไปยัง localStorage
+        localStorage.setItem("stockAdjustments", JSON.stringify(ajaxStockAdjustments));
+
+        // ✅ ลบแถวออกจากตาราง
+        row.remove();
+
+        // ✅ อัปเดตยอดรวม
+        updateTotalAmount();
+      }
+    });
+
+    // ✅ ฟังก์ชันอัปเดตยอดรวม
+    function updateTotalAmount() {
+      let totalAmount = ajaxStockAdjustments.reduce((sum, item) => sum + item.TotalPrice, 0);
+      let totalProfit = ajaxStockAdjustments.reduce((sum, item) => sum + item.totalProfit, 0);
+
+      document.getElementById("totalAmount").innerText = `${totalAmount.toLocaleString(undefined, {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 211
+      })} บาท`;
+
+      console.log("💰 กำไรทั้งหมด:", totalProfit);
+      console.log("💵 ราคาสินค้ารวม:", totalAmount);
+    }
+
+    // ✅ โหลด stockAdjustments จาก localStorage เมื่อหน้าโหลด
+    document.addEventListener("DOMContentLoaded", function () {
+      stockAdjustments = JSON.parse(localStorage.getItem("ajaxStockAdjustments")) || [];
+      updateTotalAmount();
+    });
+*/
+
+
+
+
+
+
+    ///-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -464,37 +572,37 @@ fetch(apiUrl)
 
     function setNumberValue(number) {
       let displayValue = calculatorDisplay.textContent;
-  
+
       // ถ้าความยาวเกิน 15 ตัวอักษร ให้หยุดทำงาน
       if (displayValue.length >= 13) return;
-  
+
       if (displayValue.includes(".")) {
-          // ตรวจสอบว่ามีทศนิยมอยู่แล้ว และไม่ให้เกิน 2 ตำแหน่ง
-          let [integerPart, decimalPart] = displayValue.split(".");
-          if (decimalPart.length >= 2) return; // ป้องกันการเพิ่มเกิน 2 ตำแหน่ง
+        // ตรวจสอบว่ามีทศนิยมอยู่แล้ว และไม่ให้เกิน 2 ตำแหน่ง
+        let [integerPart, decimalPart] = displayValue.split(".");
+        if (decimalPart.length >= 2) return; // ป้องกันการเพิ่มเกิน 2 ตำแหน่ง
       }
-  
+
       calculatorDisplay.textContent =
-          displayValue === "0" ? number : displayValue + number;
-  
+        displayValue === "0" ? number : displayValue + number;
+
       console.log("Current number:", calculatorDisplay.textContent);
-  }
-  
-  // การควบคุมเกี่ยวกับจุดทศนิยม
-  function addDecimal() {
+    }
+
+    // การควบคุมเกี่ยวกับจุดทศนิยม
+    function addDecimal() {
       let displayValue = calculatorDisplay.textContent;
-  
+
       // ถ้าความยาวเกิน 14 (เพราะ "." กิน 1 ตัว) ไม่ให้เพิ่มจุดทศนิยม
-      if (displayValue.length >= 14) return; 
-  
+      if (displayValue.length >= 14) return;
+
       if (!displayValue.includes(".")) {
-          calculatorDisplay.textContent = `${displayValue}.`;
+        calculatorDisplay.textContent = `${displayValue}.`;
       }
-  
+
       console.log("addDecimal:", calculatorDisplay.textContent);
-  }
-  
-  
+    }
+
+
 
     // ฟังก์ชันจัดการโอเปอเรเตอร์
     function callperator(call) {
@@ -641,7 +749,7 @@ fetch(apiUrl)
               foundProduct.name,
               "pcs",
               1,
-              foundProduct.price,
+              foundProduct.price, 
               foundProduct.stock
             );
 
@@ -718,6 +826,11 @@ fetch(apiUrl)
         callperator(key); // เรียกฟังก์ชันโอเปอเรเตอร์
       }
     });
+
+
+
+    //-------------------ส่งค่าไปให้ Ajex.js-----------------------------------
+
 
 
 
@@ -1114,7 +1227,7 @@ fetch(apiUrl)
     //******************************ตัวนี่สำคัญสำหรับการแก้ bug.ในการทำงาน  ค่าที่ส่งมาคือค่าที่ถูกต้องแล้ว แต่ต้องเอาค่าส่งมาเข้าไปรวมกับ  Array ใน scrip.js ************************************************** */
 
 
- // ✅ เปลี่ยนจาก const เป็น let
+    // ✅ เปลี่ยนจาก const เป็น let
 
 
 
@@ -1157,12 +1270,13 @@ fetch(apiUrl)
 
 
 
-   
 
 
 
 
 
+
+    // ดึง CSRF Token ก่อน
 
 
 
@@ -1251,8 +1365,8 @@ fetch(apiUrl)
 
       // คำนวณผลรวม totalProfit
 
-      let TotalPriceSum = ValueSelect.reduce((sum, item) => sum + item.TotalPrice, 0);
-      console.log("📊 ผลรวมของ totalProfit:", TotalPriceSum);
+      /*let TotalPriceSum = ValueSelect.reduce((sum, item) => sum + item.TotalPrice, 0);
+      console.log("📊 ผลรวมของ totalProfit:", TotalPriceSum);*/
 
 
       //---------------------------------สำหรับค่า stock adjustment----------------------------------------------------------------
@@ -1260,6 +1374,7 @@ fetch(apiUrl)
       let stockAdjustmentSum = stockAdjustments.reduce((sum, item) => sum + item.TotalPrice, 0);
 
       console.log("show Stockadjustment", stockAdjustmentSum)
+
 
 
       //---------------------------------------รายการวมทั่งหมดเมื่อมีการทำการกดตรงนี้ ------------------------------------------
@@ -1311,19 +1426,20 @@ fetch(apiUrl)
 
 
 
-
-        fetch("http://127.0.0.1:8080/update-stock/", {
+        fetch("http://localhost:8080/update-stock/", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            "X-CSRFToken": csrfToken // เพิ่ม CSRF Token ถ้าจำเป็น
+            "X-CSRFToken": csrfToken, // เพิ่ม CSRF Token ถ้าจำเป็น
           },
           credentials: "include",  // ✅ อนุญาตให้ส่ง Cookies ไปด้วย
           body: JSON.stringify({ updates: stockAdjustments }),
-        })
+        })      
           .then((response) => {
             if (!response.ok) {
               throw new Error(`HTTP error! Status: ${response.status}`);
+              
+             
             }
             return response.json();
           })
@@ -1341,8 +1457,13 @@ fetch(apiUrl)
 
 
 
+
+
+
+            console.log("CSRF Token:66", csrfToken);
+
             setTimeout(() => {
-              fetch("http://127.0.0.1:8080/save-sale-record/", {
+              fetch("http://localhost:8080/save-sale-record/", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -1368,6 +1489,7 @@ fetch(apiUrl)
                     let change = parseFloat(data.change || 0);
                     let totalAmount = parseFloat(data.totalAmount || 0);
 
+                    
                     // ✅ อัปเดตค่าบน UI
                     document.getElementById("totalAmount").innerText = totalAmount.toFixed(2) + " บาท";
                     document.getElementById("enteredAmount").innerText = enteredAmount.toFixed(2) + " บาท";
@@ -1397,9 +1519,15 @@ fetch(apiUrl)
                     console.error("❌ No totalAmount found in response!");
                   }
                 })
+
                 .catch(error => console.error("❌ Error fetching data:", error));
 
+
+
+
+
             }, 1000);
+
 
 
 
@@ -1425,6 +1553,9 @@ fetch(apiUrl)
           })
           .catch((error) => {
             console.error("Error updating stock:", error);
+            console.error("❌ Error updating stock:", error);
+            alert("⚠️ ไม่สามารถอัปเดตสต็อกได้! กรุณาลองใหม่อีกครั้ง เนื่องจากสต็อกของคุณไม่เพียงพอที่จะขาย");
+
           });
         console.log("CSRF Token:", csrfToken);
 
@@ -1441,7 +1572,7 @@ fetch(apiUrl)
         //------------------------------------------------สำหรับการแสดง Qr โค้ดพร้อมเพย์---------------------------------------
 
 
-        const phone = "0624380985"; // เบอร์ PromptPay
+        const phone = "0937786120"; // เบอร์ PromptPay
         const amount = 100.00; // จำนวนเงิน
 
         fetch(`/generate-promptpay-qr/?phone_number=${phone}&amount=${All}`)
@@ -1488,8 +1619,10 @@ fetch(apiUrl)
     }
 
     const csrfToken = getCSRFToken();
-    console.log("CSRF Token:", csrfToken)
+    console.log("CSRF Token1234:", csrfToken)
     //-----------------------------------------------สำหรับการลบแถวในตาราง------------------------------------------------- */
+
+
 
     function DeleteItem() {
 
@@ -1824,25 +1957,25 @@ fetch(apiUrl)
         if (!found) {
           let formattedTotal = parseFloat(selectedProduct.currentTotal).toFixed(2);
           let formattedCalculatorValue = parseFloat(calculatorDisplay.textContent).toFixed(2);
-          
+
           // push ค่าที่ถูกแปลงเป็น 2 ตำแหน่งแล้ว
-          selectedProduct.totalItems.push(parseFloat(formattedTotal)); 
-      
+          selectedProduct.totalItems.push(parseFloat(formattedTotal));
+
           addRowToTable(
-              itemtCouter,
-              selectedProduct.product.barcode,
-              selectedProduct.product.name,
-              "kg",
-              parseFloat(formattedCalculatorValue), // แปลงเป็นตัวเลขจริง
-              parseFloat(formattedTotal), // แปลงเป็นตัวเลขจริง
-              parseFloat(selectedProduct.product.stock).toFixed(2) // ป้องกัน stock มีค่าเกิน 2 ตำแหน่ง
+            itemtCouter,
+            selectedProduct.product.barcode,
+            selectedProduct.product.name,
+            "kg",
+            parseFloat(formattedCalculatorValue), // แปลงเป็นตัวเลขจริง
+            parseFloat(formattedTotal), // แปลงเป็นตัวเลขจริง
+            parseFloat(selectedProduct.product.stock).toFixed(2) // ป้องกัน stock มีค่าเกิน 2 ตำแหน่ง
           );
-      
+
           console.log("🔹 Total Items (Updated):", selectedProduct.totalItems);
           console.log("🔹 Calculator Display:", formattedCalculatorValue);
-      
-      
-      
+
+
+
 
           // ✅ ตรวจสอบว่ามีสินค้าชื่อเดียวกันอยู่ใน stockAdjustments หรือไม่
           const existingItemIndex = stockAdjustments.findIndex(item => item.product === selectedProduct.product.name);
@@ -1870,7 +2003,7 @@ fetch(apiUrl)
 
         console.log(`📦 Stock Adjustments (Updated):`, stockAdjustments);
         console.log("💰 รวมกำไรทั้งหมด", grandTotalProfit);
-        console.log("💵 รวมราคาทั้งหมด", grandTotalPrice);
+        console.log("💵 รวมราคาทั้งหมด5555", grandTotalPrice);
 
 
 
@@ -1923,24 +2056,44 @@ fetch(apiUrl)
       inputBtn1.addEventListener("click", () => Additem());
     }
 
-    //------------------------------------------------------******************************--------------------------------------------------
+    //-----------------------------------------------------ดึงค่ามาจาก ajex ข้างนอกตัวนี้ต้องศึกษาเยอะๆมีประโยชน์มาก -------------------------------------------------
 
 
-
-    let ValueSelect = [];  // ✅ เปลี่ยนจาก const เป็น let
+    let ValueSelect = [];
 
     // ✅ รับ Event จาก ajax.js และอัปเดต stockAdjustments
-      document.addEventListener("updateStock", function (event) {
-      stockAdjustments = event.detail;
-      console.log("📦 stockAdjustments ที่ได้รับใน script.js:", stockAdjustments);
+    document.addEventListener("updateStock", function (event) {
+      let ajaxStockAdjustments = event.detail;
+      console.log("📦 ajaxStockAdjustments ที่ได้รับใน script.js:", ajaxStockAdjustments);
 
-      ValueSelect = [...stockAdjustments]; // ✅ ทำสำเนา stockAdjustments ไปยัง ValueSelect
+      ValueSelect = [...ajaxStockAdjustments]; // ✅ ทำสำเนาค่าไปยัง ValueSelect
       console.log("📌 ประกาศตัวแปร Global:", ValueSelect);
+
+      // ✅ เพิ่มค่าเข้าไปใน stockAdjustments โดยใช้ push()
+      /*stockAdjustments.push(...ValueSelect);
+      console.log("🔄 stockAdjustments ล่าสุด:", stockAdjustments);*/
+
+
+
+      // เพิ่มเฉพาะข้อมูลที่ไม่ซ้ำ ตัวนี้จะเป็นการรวมสินค้าเข้าใน array ส่วนนี้ 
+      ValueSelect.forEach(item => {
+        const isDuplicate = stockAdjustments.some(
+          existingItem => existingItem.product === item.product
+        );
+        if (!isDuplicate) {
+          stockAdjustments.push(item);
+        }
+      });
+
+      console.log("🔄 stockAdjustments หลังเพิ่มข้อมูล (ไม่ซ้ำ):", stockAdjustments);
+
+
 
       if (stockAdjustments.length === 0) {
         console.warn("⚠️ ไม่มีสินค้าใน stockAdjustments");
         return;
       }
+
       updateCartTable(); // ✅ อัปเดตตารางสินค้า
 
       // ✅ ทำให้แน่ใจว่า stockAdjustments มีค่า ก่อนอัปเดต Stock
@@ -1953,145 +2106,151 @@ fetch(apiUrl)
 
 
 
-    console.log("📤 กำลังส่งข้อมูลไป API:", JSON.stringify({ updates: stockAdjustments }));
-    console.log("📦 ค่า stockAdjustments ก่อนส่ง:", stockAdjustments);
-
-  
-  
 
 
 
+    console.log("📤 กำลังส่งข้อมูลไป ajaxStockAdjustments API:", JSON.stringify({ updates: ajaxStockAdjustments }));
+    console.log("📦 ค่า ajaxStockAdjustments ก่อนส่ง:", ajaxStockAdjustments);
 
 
-  let itemtCouter = 1;
 
-  function addRowToTable(itemt, barcode, product, kg, count, price, stock1) {
+    function updateStockAPI() {
+      console.log("🔄 อัปเดตสต็อก API ด้วยข้อมูล:", ValueSelect);
+    }
+
+
+
+
+
+    let itemtCouter = 1;
+
+    function addRowToTable(itemt, barcode, product, kg, count, price, stock1) {
       const tableBody = document.getElementById("itemTableBody"); // ดึง tbody ของตาราง
       const newRow = document.createElement("tr"); // สร้างแถวใหม่
-  
+
       // สร้าง cell สำหรับลำดับ
       const itemtCell = document.createElement("td");
       itemtCell.textContent = `${itemt}`;
       newRow.appendChild(itemtCell);
       itemtCouter++; // เพิ่มค่าในระบบ
-  
+
       // สร้างเซลสำหรับชื่อสินค้า
       const barcodeCell = document.createElement("td");
       barcodeCell.textContent = `${barcode}`;
       newRow.appendChild(barcodeCell);
-  
+
       const productCell = document.createElement("td");
       productCell.textContent = product;
       newRow.appendChild(productCell);
-  
+
       const kgCell = document.createElement("td");
       kgCell.textContent = kg;
       newRow.appendChild(kgCell);
-  
+
 
       const countCell = document.createElement("td");
       countCell.textContent = `${Math.round(count * 100) / 100}`;
       newRow.appendChild(countCell);
-      
+
 
 
 
       const priceCell = document.createElement("td");
       priceCell.textContent = `${price.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
       })} บาท`;
       newRow.appendChild(priceCell);
-  
+
       const stock1Cell = document.createElement("td");
       stock1Cell.textContent = `${stock1} `;
       newRow.appendChild(stock1Cell);
-  
+
       const deleteProductCell = document.createElement("td");
       deleteProductCell.innerHTML = `<button type="button" class="btn btn-danger remove-item">ลบข้อมูล</button>`;
       newRow.appendChild(deleteProductCell);
-  
+
       tableBody.appendChild(newRow);
-      
-  
-      
-  
+
+
+
+
       addRemoveEvent(); // เพิ่ม Event Listener ให้กับปุ่มลบทั้งหมด
-  }
-
-
-
-
-
-
- /*   let itemtCouter = 1;
-
-function addRowToTable(itemt, barcode, product, kg, count, price, stock1) {
-    const tableBody = document.getElementById("itemTableBody");
-
-    // ✅ ใช้ barcode เป็นตัวอ้างอิงเพื่อลดปัญหาซ้ำซ้อน
-    let existingRow = document.querySelector(`#itemTableBody tr[data-barcode="${barcode}"]`);
-
-    if (existingRow) {
-        console.log("🟢 อัปเดตจำนวนสินค้าในตาราง:", product);
-
-        // ✅ ดึงค่าปัจจุบันจาก stockAdjustments
-        let updatedProduct = stockAdjustments.find(item => item.product === product);
-
-        if (!updatedProduct) {
-            console.warn(`⚠️ ไม่พบสินค้า ${product} ใน stockAdjustments`);
-            return;
-        }
-
-        let quantityCell = existingRow.querySelector(".cart-quantity");
-        let totalCell = existingRow.querySelector(".cart-total");
-
-        // ✅ ใช้ค่าล่าสุดจาก stockAdjustments
-        let newQuantity = updatedProduct.quantity;
-        let newTotalPrice = updatedProduct.TotalPrice;
-
-        quantityCell.innerText = newQuantity.toFixed(2);
-        totalCell.innerText = newTotalPrice.toLocaleString(undefined, {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-        }) + " บาท";
-
-    } else {
-        console.log("🆕 เพิ่มสินค้าใหม่ลงในตาราง:", product);
-
-        const newRow = document.createElement("tr");
-        newRow.setAttribute("data-barcode", barcode); // ใช้ barcode เป็น identifier
-
-        newRow.innerHTML = `
-            <td class="1border p-2">${itemt}</td>
-            <td class="1border p-2">${barcode}</td>
-            <td class="1border p-2">${product}</td>
-            <td class="1border p-2">${kg}</td>
-            <td class="1border p-2 cart-quantity">${parseFloat(count).toFixed(2)}</td>
-            <td class="1border p-2 cart-total">${price.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2,
-            })} บาท</td>
-            <td class="1border p-2">${stock1}</td>
-            <td class="1border p-2">
-                <button type="button" class="btn btn-danger remove-item">ลบข้อมูล</button>
-            </td>
-        `;
-        tableBody.appendChild(newRow);
     }
 
-    addRemoveEvent(); // ✅ อัปเดต Event Listener
-}
-*/
-  
-  
+
+
+
+
+
+    /*   let itemtCouter = 1;
+   
+   function addRowToTable(itemt, barcode, product, kg, count, price, stock1) {
+       const tableBody = document.getElementById("itemTableBody");
+   
+       // ✅ ใช้ barcode เป็นตัวอ้างอิงเพื่อลดปัญหาซ้ำซ้อน
+       let existingRow = document.querySelector(`#itemTableBody tr[data-barcode="${barcode}"]`);
+   
+       if (existingRow) {
+           console.log("🟢 อัปเดตจำนวนสินค้าในตาราง:", product);
+   
+           // ✅ ดึงค่าปัจจุบันจาก stockAdjustments
+           let updatedProduct = stockAdjustments.find(item => item.product === product);
+   
+           if (!updatedProduct) {
+               console.warn(`⚠️ ไม่พบสินค้า ${product} ใน stockAdjustments`);
+               return;
+           }
+   
+           let quantityCell = existingRow.querySelector(".cart-quantity");
+           let totalCell = existingRow.querySelector(".cart-total");
+   
+           // ✅ ใช้ค่าล่าสุดจาก stockAdjustments
+           let newQuantity = updatedProduct.quantity;
+           let newTotalPrice = updatedProduct.TotalPrice;
+   
+           quantityCell.innerText = newQuantity.toFixed(2);
+           totalCell.innerText = newTotalPrice.toLocaleString(undefined, {
+               minimumFractionDigits: 2,
+               maximumFractionDigits: 2,
+           }) + " บาท";
+   
+       } else {
+           console.log("🆕 เพิ่มสินค้าใหม่ลงในตาราง:", product);
+   
+           const newRow = document.createElement("tr");
+           newRow.setAttribute("data-barcode", barcode); // ใช้ barcode เป็น identifier
+   
+           newRow.innerHTML = `
+               <td class="1border p-2">${itemt}</td>
+               <td class="1border p-2">${barcode}</td>
+               <td class="1border p-2">${product}</td>
+               <td class="1border p-2">${kg}</td>
+               <td class="1border p-2 cart-quantity">${parseFloat(count).toFixed(2)}</td>
+               <td class="1border p-2 cart-total">${price.toLocaleString(undefined, {
+                   minimumFractionDigits: 2,
+                   maximumFractionDigits: 2,
+               })} บาท</td>
+               <td class="1border p-2">${stock1}</td>
+               <td class="1border p-2">
+                   <button type="button" class="btn btn-danger remove-item">ลบข้อมูล</button>
+               </td>
+           `;
+           tableBody.appendChild(newRow);
+       }
+   
+       addRemoveEvent(); // ✅ อัปเดต Event Listener
+   }
+   */
+
+
 
 
     //---------------------------------------------------การ updateStock จาก ajax.js --------------------------------------
 
 
-    
-  
+
+
 
     //-------------------------------------------**********************-----------------------------------
 
@@ -2367,12 +2526,13 @@ function addRowToTable(itemt, barcode, product, kg, count, price, stock1) {
     //--------------------------------ปุ่มเคลียร-------------------------
     function comlum22() {
 
-      fetch("http://127.0.0.1:8080/Dashboard/", {
+      fetch("http://localhost:8080/Dashboard/", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "X-CSRFToken": csrfToken,
+          "X-CSRFToken": csrfToken
         },
+        credentials: "include",  // ✅ ให้ส่ง Cookie ไปด้วย
       })
         .then(response => {
           if (response.ok) {
@@ -2385,7 +2545,48 @@ function addRowToTable(itemt, barcode, product, kg, count, price, stock1) {
         })
         .catch(error => {
           console.error("Fetch error:", error);
+
+
+
+
+
+
+
+
+
+
         });
+
+
+
+
+      /*const getCookie = (name) => {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.startsWith(name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    };
+    
+    const csrfToken = getCookie('csrftoken');*/ // ดึงค่า CSRF Token จาก Cookie
+
+
+
+   
+
+
+
+  
+
+
+  //------------------------------------------------------------------------------------------
 
 
     }
@@ -2434,6 +2635,20 @@ function addRowToTable(itemt, barcode, product, kg, count, price, stock1) {
     console.error("Error fetching data:", error);
   });
 
+
+// ------------------------------------------แสดงค่าใบเสร็จเพื่อดูรายการว่าถูกต้องไหม--------------------------------------------------------------------
+
+  function ShowItemTable1() {
+    console.log("ShowItemTable");
+
+    
+         
+
+  }
+
+  if (ShowRecipe) {
+    ShowRecipe.addEventListener("click", () => ShowItemTable1()); // ใช้เป็น id แทนระบุแต่ล่ะตัวไปเลย
+  }
 
 
 

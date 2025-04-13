@@ -53,9 +53,10 @@ class ManageProduct2(admin.ModelAdmin):
    
     class Media:
         js = [
-            "https://unpkg.com/html5-qrcode",  # ไลบรารีกล้อง
-            "js/barcode_scanner.js",           # ไฟล์ JavaScript ของเรา
-        ]
+        "https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js",  # ระบุเวอร์ชันชัดเจน
+        "js/barcode_scanner_v22.js",  # ไฟล์ของเราต้องแน่ใจว่า static โหลดได้จริง 427035
+    ]
+
 
     
   

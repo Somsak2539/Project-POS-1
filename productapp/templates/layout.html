@@ -5,7 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://unpkg.com;">
+    <script src="https://unpkg.com/html5-qrcode@2.3.8/minified/html5-qrcode.min.js"></script>
+
+
     <link rel="shortcut icon" href="{% static 'assets/images/shopping-bag.png' %}" type="image/x-icon">
+    <script src="https://unpkg.com/html5-qrcode@2.3.10/minified/html5-qrcode.min.js"></script>
     <title>
 
         {% block title%}
@@ -119,6 +124,9 @@
             </div>
         </div>
     </section>
+    <script src="{% static 'js/barcode_scanner.js' %}"></script>
+    
+
     <script src="{% static "assets/dropdown/js/navbar-dropdown.js" %}"></script>
     <script src="{% static "assets/theme/js/script.js" %}"></script>
 </body>

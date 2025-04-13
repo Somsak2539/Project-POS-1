@@ -53,6 +53,11 @@ CHANNEL_LAYERS = {
 }
 
 
+CSP_SCRIPT_SRC = (
+    "'self'", 
+    'https://unpkg.com', 
+    'https://somsaksonngai.site'
+)
 
 
 # ✅ Django REST Framework

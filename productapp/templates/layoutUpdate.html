@@ -18,6 +18,10 @@
     </title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Security-Policy" content="script-src 'self' https://unpkg.com;">
+	<script src="https://unpkg.com/html5-qrcode@2.3.8/minified/html5-qrcode.min.js"></script>
+
+
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="{% static "assets/images/icons/favicon.png" %}">
 <!--===============================================================================================-->
@@ -47,6 +51,7 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{% static "assets/css/util.css"%}">
 	<link rel="stylesheet" type="text/css" href="{% static "assets/css/main.css"%}">
+	<script src="https://unpkg.com/html5-qrcode@2.3.10/minified/html5-qrcode.min.js"></script>
 <!--===============================================================================================-->
 </head>
 <body class="animsition">
@@ -793,8 +798,9 @@ Copyright Somsak Sonngai &copy;<script>document.write(new Date().getFullYear());
 	});
 	</script>
 	
-
-
+	
+	<script src="{% static 'js/barcode_scanner.js' %}"></script>
+	<script src="https://unpkg.com/html5-qrcode@2.3.10/minified/html5-qrcode.min.js"></script>
 
 </body>
 </html>
