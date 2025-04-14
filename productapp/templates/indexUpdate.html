@@ -170,7 +170,7 @@
 
 							<div class="block1-txt-child2 p-b-4 trans-05">
 								<div class="block1-link stext-101 cl0 trans-09">
-									เบอร์โทร 0843285745
+									เบอร์โทร 0624380985
 								</div>
 							</div>
 						</a>
@@ -186,7 +186,7 @@
 		<div class="container">
 			<div class="p-b-10">
 				<h3 class="ltext-103 cl5">
-					Product Overview
+					Product Overview1
 				</h3>
 			</div>
 
@@ -481,6 +481,14 @@
 					</div>
 				</div>
 				{% endfor %}
+
+				
+				{% if Products.has_next %}
+				<a href="?page={{ Products.next_page_number }}" class="flex-c-m how-pagination1 trans-04 m-all-7">»</a>
+				<a href="?page={{ Products.paginator.num_pages }}" class="flex-c-m how-pagination1 trans-04 m-all-7">Last</a>
+			    {% endif %}
+
+
 			</div>
 
 

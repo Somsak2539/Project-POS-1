@@ -31,7 +31,7 @@
             <div class="container">
                 <div class="p-b-10">
                     <h3 class="ltext-103 cl5">
-                        Product Overview
+                        Product Overview1
                     </h3>
                 </div>
     
@@ -41,7 +41,7 @@
                             อาหารขายส่งทั้งหมด
                         </button>
     
-                        <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
+                        <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".เครื่องดื่ม">
                             เครื่องดืม
                         </button>
     
@@ -332,18 +332,28 @@
                 </div>
     
     
-    
                <!-- Pagination -->
-                <div class="flex-c-m flex-w w-full p-t-38">
-                    {% for num in all_product.paginator.page_range %}
-                       <a href="?page={{ num }}" 
-                          class="flex-c-m how-pagination1 trans-04 m-all-7 {% if num == all_product.number %} active-pagination1 {% endif %}">
-                         {{ num }}
-                       </a>
-                        {% empty %}
-                     <span class="flex-c-m how-pagination1 trans-04 m-all-7 ">No Pages</span>
-                     {% endfor %}
-                </div>
+               <div class="flex-c-m flex-w w-full p-t-38">
+                {% if all_product.has_previous %}
+                    <a href="?page=1" class="flex-c-m how-pagination1 trans-04 m-all-7">First</a>
+                    <a href="?page={{ all_product.previous_page_number }}" class="flex-c-m how-pagination1 trans-04 m-all-7">«</a>
+                {% endif %}
+            
+                {% for num in all_product.paginator.page_range %}
+                    {% if num >= all_product.number|add:'-2' and num <= all_product.number|add:'2' %}
+                        <a href="?page={{ num }}"
+                           class="flex-c-m how-pagination1 trans-04 m-all-7 {% if num == all_product.number %}active-pagination1{% endif %}">
+                            {{ num }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            
+                {% if all_product.has_next %}
+                    <a href="?page={{ all_product.next_page_number }}" class="flex-c-m how-pagination1 trans-04 m-all-7">»</a>
+                    <a href="?page={{ all_product.paginator.num_pages }}" class="flex-c-m how-pagination1 trans-04 m-all-7">Last</a>
+                {% endif %}
+            </div>
+            
 
 
 

@@ -21,7 +21,7 @@ def ProductNew(request):
      all_product=Product1.objects.all().order_by("category") # เรียกลำดับจากชื่อสินค้า ถ้าเป็นการเพิ่ม order_by ตัวนี้จะมีการเชื่อมโยงกับ Product.html
      #กำหนดหมายเลขหน้า
      page=request.GET.get("page") # ดึงค่า parameter page เพิ่อระบุว่าผู้ใช้ต้องการดูหน้าที่เท่าไหร่ ถ้าไม่มี parametre page ใน url ค่านี้จะเป็น  None
-     paginator=Paginator(all_product,500) #สร้าง object Paginator เพื่อแบ่งข้อมูล all_product ออกเป็นหน้า page โดยแต่ล่ะหน้าจะแสดงข้อมูล 3 รายการ
+     paginator=Paginator(all_product,20) #สร้าง object Paginator เพื่อแบ่งข้อมูล all_product ออกเป็นหน้า page โดยแต่ล่ะหน้าจะแสดงข้อมูล 3 รายการ
      all_product=paginator.get_page(page) #ดึงข้อมูลของหน้าที่ผู้ชายที่จะต้องการดู (ตามค่า page ที่ได้จาก url ) ถ้า page เป็น None  หรือไม่ถูกต้อง (เช่น มากกว่าจำนวณหน้าทั้งหมด ) จะดึงข้อมูลหน้าแรกมาให้โดยอัตโนมัติ
      return render (request,"ProductUpdate.html",{"all_product":all_product}) #ทำการดึงค่าตัวแปรมาเก็บไว้แล้ว Return กับไป
 

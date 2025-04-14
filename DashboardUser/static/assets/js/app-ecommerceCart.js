@@ -678,6 +678,48 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+
+
+
+/*const input = document.getElementById("posInput");
+    const recipeBtn = document.getElementById("RecipeMony");
+
+    document.addEventListener("keydown", function (e) {
+      console.log("Key:", e.key);
+
+      if (e.key === "Enter") {
+        e.preventDefault();
+        console.log("Enter pressed");
+
+        if (recipeBtn) {
+          console.log("Trigger click on รับเงิน");
+          recipeBtn.click();
+        }
+      }
+    });*/
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const input = document.getElementById("searchBarcode");
+  
+      input.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          e.preventDefault(); // ❌ ป้องกันพฤติกรรมปกติของ Enter
+          console.log("ห้ามกด Enter");
+        }
+      });
+    });
+
+
+
+
+
+
+//่-------------------------------------------------------สำหรับ event การรับเงิน -----------------------------------------------------
+
+
+
 //่-------------------------------------------------------สำหรับ event การรับเงิน -----------------------------------------------------
 
 
