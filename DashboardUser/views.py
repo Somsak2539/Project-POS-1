@@ -186,10 +186,14 @@ class SaveSaleRecordAPIView(APIView):
 
 
 
+@login_required(login_url='/login_cover/')
+@user_passes_test(is_special_admin,login_url='/eror404/')
 def apps_ecommerceCart(request):
     
     
-    
+     # ✅ เผื่อไว้ก่อนว่าตอน GET อาจยังไม่มี items (จาก POST)
+    items = []
+
     if request.method == "POST":
         try:
             data = json.loads(request.body)
@@ -217,17 +221,12 @@ def apps_ecommerceCart(request):
                 "total": f"{total:,.2f}", 
                 "item_count": len(items),
             })
-
+       
         except Exception as e:
             print("❌ Error:", str(e))
             return JsonResponse({"error": "เกิดข้อผิดพลาด", "detail": str(e)}, status=400)
     
- 
-    
-    
-    
-    
-    
+
     
 
      # เพิ่มสำหรับการแจ้งเตือน
@@ -356,6 +355,7 @@ def apps_ecommerceCart(request):
         "ProductStock":ProductStock,
         "total_product_count":total_product_count,
         'search': search,
+      
         }) #ทำการดึงค่าตัวแปรมาเก็บไว้แล้ว Return กับไป
     
 

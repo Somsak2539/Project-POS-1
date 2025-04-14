@@ -5,15 +5,14 @@
 <div class="product-item">
 
 <a  class="block overflow-hidden transition card group/card hover:shadow-lg" href="#">
-    <div class="relative">
-        <!-- รูปภาพที่ใช้เป็นปุ่มเปิด Modal -->
+    <div class="relative flex justify-center items-center bg-white" style="width: 100%; height: 250px;">
         <img 
-            class="transition-transform duration-500 ease-in-out group-hover/card:scale-105 rounded-t-md cursor-pointer" 
-            src="{{ Product1.image.url }}" 
-            alt="Image"
-            data-modal-target="smallModal-{{ Product1.id }}" 
+          class="w-[150px] h-[150px] object-fill transition-transform duration-500 ease-in-out group-hover/card:scale-105 rounded-t-md cursor-pointer" 
+          src="{{ Product1.image.url }}" 
+          alt="Image"
+          data-modal-target="smallModal-{{ Product1.id }}"
         >
-    </div>
+      </div>
 
 
     <div class="card-body">

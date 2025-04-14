@@ -240,6 +240,7 @@ document.addEventListener("click", function (event) {
           .then(data => {
 
             console.log("📈 Response จาก Django:", data);
+            document.querySelector("#item-count").innerText = data.item_count;
             
             totalAmountFromDjango = parseFloat(data.total.replace(/,/g, ''));
 
@@ -247,7 +248,10 @@ document.addEventListener("click", function (event) {
             // อัปเดตใน DOM ก็ได้เช่นกัน
             const totalElement = document.getElementById("totalDisplay");
             if (totalElement) {
+
+              itemCountElement.innerText = data.item_count;
               totalElement.innerText = data.total;
+              console.log("✅ อัปเดต item-count:", data.item_count);
             } else {
               console.warn("⚠️ ไม่พบ element ที่มี id='totalDisplay'");
             }
@@ -301,7 +305,8 @@ document.addEventListener("click", function (event) {
           .then(response => response.json())
           .then(data => {
             console.log("📈 Response:", data);
-      
+            // อับเดท
+            document.querySelector("#item-count").innerText = data.item_count;
             // ✅ เก็บ total จาก Django ไว้ใช้งานภายหลัง
             totalAmountFromDjango = parseFloat(data.total.replace(/,/g, ''));
 
@@ -552,6 +557,9 @@ document.addEventListener("DOMContentLoaded", function () {
                   .then(data => {
                     console.log("📈 Response:", data);
               
+
+
+                    document.querySelector("#item-count").innerText = data.item_count;
                     // ✅ เก็บ total จาก Django ไว้ใช้งานภายหลัง
                     totalAmountFromDjango = parseFloat(data.total.replace(/,/g, ''));
 
