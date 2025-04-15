@@ -24,6 +24,8 @@ path('eror404/', views.eror404, name='eror404'),
 path('apps-invoiceList/', views.appsinvoiceList, name='apps-invoiceList'),
 path('apps_ecommerceCart/', views.apps_ecommerceCart, name='apps_ecommerceCart'),
 path("apps-ecommerceCartAjax/",views.apps_ecommerceCartAjax,name="apps-ecommerceCartAjax"),
+path('products/<int:pk>/update-price-stock/', views.update_product_price_stock, name='update_product_price_stock'),
+
 
 
  

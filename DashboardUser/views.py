@@ -37,6 +37,7 @@ from django.utils.decorators import method_decorator
 
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication 
 from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import redirect, reverse
 
 
 
@@ -666,7 +667,16 @@ def ProductPreview(request):
     """
     แสดงรายการสินค้าทั้งหมด พร้อมตัวกรองและการเรียงลำดับ
     """
-    
+
+    product = Product1.objects.last()
+
+
+
+
+
+
+
+
     # เพิ่มสำหรับการแจ้งเตือน
    #Product1.objects.filter(stock__lt=10).values("id", "name", "stock","updated_at")
     # ✅ ดึงสินค้ายอดนิยม (Trending Products)
@@ -737,9 +747,26 @@ def ProductPreview(request):
         "categories": Category.objects.all(),  # ✅ หมวดหมู่ทั้งหมด (อีกตัว)
         "ProductStock":ProductStock,
         "total_product_count":total_product_count,
+        "product":product,
+       
     })
 
 
+
+
+def update_product_price_stock(request, pk):
+    if request.method == "POST":
+        product = Product1.objects.get(id=pk)
+        
+        product.price = request.POST.get("product_price")
+        product.stock = request.POST.get("product_stock")  # ← ต้องได้ค่า ไม่ใช่ None
+
+        if not product.stock:
+            return HttpResponse("Stock is empty or missing", status=400)
+
+        product.save()
+
+        return redirect(reverse('ProductPreview'))
 
 
 
