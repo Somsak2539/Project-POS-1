@@ -23,6 +23,7 @@ ALLOWED_HOSTS = ["*", "127.0.0.1","[2001:44c8:4518:d5e5:50fb:df16:7172:726f]","0
 
 # ✅ ติดตั้งแอปที่ต้องใช้
 INSTALLED_APPS = [
+    "django_cleanup.apps.CleanupConfig", 
     "daphne",
     "channels",
     "django.contrib.admin",

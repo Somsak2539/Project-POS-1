@@ -295,14 +295,25 @@ def apps_ecommerceCart(request):
            # print(f"✅ Filtering by Name or other: {products.count()} items found")
          '''
         
-    if search:
+    '''if search:
         search = search.strip()  # ตัดช่องว่าง/อักขระพิเศษจากการยิงบาร์โค้ด
         if search.isdigit():
             products = products.filter(barcode=search)
         else:
         # ถ้าไม่ใช่ตัวเลข ให้ไม่แสดงอะไร
             products = products.none()
+        print(f"🔍 search = '{search}'")'''
+    
+#--------------------------------------------------ถ้าคุณอยากให้การค้นหาสามารถพิมพ์แค่ บางส่วนของ barcode (โดยเฉพาะตัวหน้า) แล้วแสดงผลลัพธ์ที่ตรงกับตัวหน้าของ--------------------------------
+    if search:
+        search = search.strip()
+        if search.isdigit():
+        # ใช้ __startswith เพื่อค้นหา barcode ที่ขึ้นต้นด้วย search
+            products = products.filter(barcode__startswith=search)
+        else:
+            products = products.none()
         print(f"🔍 search = '{search}'")
+
 
 
         
@@ -727,6 +738,8 @@ def ProductPreview(request):
         "ProductStock":ProductStock,
         "total_product_count":total_product_count,
     })
+
+
 
 
 
