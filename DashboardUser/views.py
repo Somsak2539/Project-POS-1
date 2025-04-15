@@ -662,98 +662,79 @@ def EditAdd(request,id):
 
 
 @login_required(login_url='/login_cover/')
-@user_passes_test(is_special_admin,login_url='/eror404/')
+@user_passes_test(is_special_admin, login_url='/eror404/')
 def ProductPreview(request):
     """
     แสดงรายการสินค้าทั้งหมด พร้อมตัวกรองและการเรียงลำดับ
     """
 
-    product = Product1.objects.last()
+    # ✅ เรียกสินค้าทั้งหมดไว้ก่อนสำหรับบาง context
+    product = Product1.objects.all()
 
+    # ✅ กำหนดตัวแปร products สำหรับกรอง
+    products = Product1.objects.all()
 
+    # 🔍 ค้นหาด้วย Barcode
+    search = request.GET.get('search', '').strip()
+    if search:
+        if search.isdigit():
+            products = products.filter(barcode__startswith=search)
+        else:
+            products = Product1.objects.none()
 
-
-
-
-
-
-    # เพิ่มสำหรับการแจ้งเตือน
-   #Product1.objects.filter(stock__lt=10).values("id", "name", "stock","updated_at")
-    # ✅ ดึงสินค้ายอดนิยม (Trending Products)
+    # ✅ ดึงสินค้ายอดนิยม
     Products = Product1.objects.filter(is_trending=True)
 
     # ✅ ดึงข้อมูลหมวดหมู่ทั้งหมด
     filter2 = Category.objects.all()
 
-    # ✅ รับค่าพารามิเตอร์จาก `GET` Request
+    # ✅ รับค่าจาก URL สำหรับการกรอง
     category_id = request.GET.get('category', None)
     min_price = request.GET.get('min_price', None)
     max_price = request.GET.get('max_price', None)
     sort_by = request.GET.get('sort', 'default')
 
-    # ✅ Debug: แสดงค่าที่ได้รับจาก Query Parameters
-    #print(f"🟢 Category ID: {category_id}, Min Price: {min_price}, Max Price: {max_price}, Sort: {sort_by}")
-
-    # ✅ ดึงข้อมูลสินค้าทั้งหมด
-    products = Product1.objects.all()
-    
-    
-    #สำหรับการแจ้งเตือน
-    ProductStock = Product1.objects.filter(stock__lt=10)  
-    total_product_count = ProductStock.count()
-   # print ("การนับข้อมูล",total_product_count);
-    
-
-    # ✅ กรองสินค้าตามหมวดหมู่
+    # ✅ กรองตามหมวดหมู่
     if category_id and category_id.isdigit():
         products = products.filter(category_id=int(category_id))
-        #print(f"✅ Filtered by Category ({category_id}): {products.count()} items found")
 
-    # ✅ กรองสินค้าตามช่วงราคา (ตรวจสอบค่าก่อนแปลงเป็น `float`)
+    # ✅ กรองตามช่วงราคา
     try:
         if min_price:
-            min_price = float(min_price)
-            products = products.filter(price__gte=min_price)
-            #print(f"✅ Filtered by Min Price ({min_price}): {products.count()} items found")
-
+            products = products.filter(price__gte=float(min_price))
         if max_price:
-            max_price = float(max_price)
-            products = products.filter(price__lte=max_price)
-           # print(f"✅ Filtered by Max Price ({max_price}): {products.count()} items found")
-
+            products = products.filter(price__lte=float(max_price))
     except ValueError:
         print("⚠️ Warning: ราคาไม่ใช่ตัวเลขที่ถูกต้อง")
 
-    # ✅ เรียงลำดับสินค้าตามตัวเลือก
+    # ✅ เรียงลำดับสินค้า
     if sort_by == 'highest':
-        products = products.order_by('-price')  # ราคาสูงไปต่ำ
-        #print("✅ Sorted by Highest Price")
+        products = products.order_by('-price')  # ราคาสูง -> ต่ำ
     elif sort_by == 'lowest':
-        products = products.order_by('price')  # ราคาต่ำไปสูง
-        #print("✅ Sorted by Lowest Price")
+        products = products.order_by('price')   # ราคาต่ำ -> สูง
     elif sort_by == 'newest':
-        products = products.order_by('-created_at')  # สินค้าใหม่สุด
-        #print("✅ Sorted by Newest")
+        products = products.order_by('-created_at')  # ล่าสุด -> เก่าสุด
 
-    # ✅ Debug: ตรวจสอบจำนวนสินค้าหลังจากกรอง
-    #print(f"🔵 Total Products After Filtering: {products.count()}")
+    # ✅ ดึงสินค้าที่ stock น้อยกว่า 10
+    ProductStock = Product1.objects.filter(stock__lt=10)
+    total_product_count = ProductStock.count()
 
-    # ✅ ส่งข้อมูลไปยัง Template
+    # ✅ ส่งข้อมูลไปยัง template
     return render(request, "ProductPreview.html", {
-        "Products": Products,  # ✅ สินค้ายอดนิยม
-        "products": products,  # ✅ สินค้าทั้งหมด (ที่ถูกกรองแล้ว)
-        "filter1": Product1.objects.all(),  # ✅ ข้อมูลสินค้าทั้งหมด
-        "filter2": filter2,    # ✅ หมวดหมู่ทั้งหมด
-        "categories": Category.objects.all(),  # ✅ หมวดหมู่ทั้งหมด (อีกตัว)
-        "ProductStock":ProductStock,
-        "total_product_count":total_product_count,
-        "product":product,
-       
+        "Products": Products,                     # สินค้ายอดนิยม
+        "products": products,                     # สินค้าที่ผ่านการกรอง
+        "filter1": Product1.objects.all(),        # สำหรับ dropdown
+        "filter2": filter2,                        # หมวดหมู่
+        "categories": Category.objects.all(),     # หมวดหมู่ (อีกตัว)
+        "ProductStock": ProductStock,             # สินค้าใกล้หมด
+        "total_product_count": total_product_count,
+        "product": product,                       # ทั้งหมด (original)
     })
 
 
 
-
+@login_required(login_url='/login_cover/')
+@user_passes_test(is_special_admin,login_url='/eror404/')
 def update_product_price_stock(request, pk):
     if request.method == "POST":
         product = Product1.objects.get(id=pk)
