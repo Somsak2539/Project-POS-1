@@ -579,13 +579,13 @@ td {
               <table class="styled-table" id="itemTable">
                 <thead>
                   <tr>
-                    <th>id</th>
+                    <th>ลำดับ</th>
                     <th>barcode</th>
                     <th>ชื่อสินค้า</th>
                     <th>หน่อยนับ</th>
                     <th>จำนวณ</th>
                     <th>ราคา</th>
-                    <th>สินค้าที่คงเหลือใน Stock</th>
+                    <th>Stock</th>
                     <th>ลบรายการ</th>
 
                   </tr>
@@ -1099,7 +1099,13 @@ td {
 
 
 
-
+<!--สามารถที่จะให้ cersorตารางให้ไปอยู่ที่ด้านขวา-->
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const container = document.querySelector('.table-container');
+    container.scrollLeft = container.scrollWidth;
+  });
+</script>
 
 
 

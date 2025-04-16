@@ -309,13 +309,16 @@
   
   .table-container {
     width: 100%;
-    max-height: 200px; /* กำหนดความสูงสูงสุดของคอนเทนเนอร์ */
-    overflow-y: auto; /* เพิ่มแถบเลื่อนแนวตั้งเมื่อเนื้อหาเกิน */
-    /*overflow-x: auto; /* เพิ่มแถบเลื่อนแนวนอนเมื่อเนื้อหาเกิน */
-    border: 1px solid #ddd; /* เส้นขอบรอบคอนเทนเนอร์ */
+    max-height: 200px;
+    overflow-x: auto;      /* ✅ เลื่อนแนวนอนได้ */
+    overflow-y: auto;      /* ✅ เลื่อนแนวตั้งได้ */
+    border: 1px solid #ddd;
     margin: 25px 0;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  }
+    display: block;        /* ✅ บังคับให้เป็น block เพื่อ scroll ได้ */
+    white-space: nowrap;   /* ✅ บรรทัดเดียว ไม่ตัดบรรทัด */
+}
+
   
   
   .styled-table {
@@ -338,7 +341,7 @@
   .styled-table th{
 
     color: #000000;
-    font-size: 8px;
+    font-size: 20px;
     padding: 12px 15px;
     text-align: center;      /* จัดข้อความกึ่งกลางในแนวนอน */
     vertical-align: middle;  /* จัดข้อความกึ่งกลางในแนวตั้ง */
@@ -348,8 +351,8 @@
 
   .styled-table td {
 
-    color: #020af9;
-    font-size: 8px;
+    color: #000000;
+    font-size: 20x;
     padding: 12px 15px;
     text-align: center;      /* จัดข้อความกึ่งกลางในแนวนอน */
     vertical-align: middle;  /* จัดข้อความกึ่งกลางในแนวตั้ง */

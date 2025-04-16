@@ -23,6 +23,7 @@ ALLOWED_HOSTS = ["*", "127.0.0.1","[2001:44c8:4518:d5e5:50fb:df16:7172:726f]","0
 
 # ✅ ติดตั้งแอปที่ต้องใช้
 INSTALLED_APPS = [
+    "pwa",
     "django_cleanup.apps.CleanupConfig", 
     "daphne",
     "channels",
@@ -44,6 +45,34 @@ INSTALLED_APPS = [
     "corsheaders",
     "rangefilter",'django.contrib.humanize',
 ]
+
+
+
+
+PWA_APP_NAME = 'My WebApp'
+PWA_APP_DESCRIPTION = "แอปของแบงค์สุดน่ารัก"
+PWA_APP_THEME_COLOR = '#FFFFFF'
+PWA_APP_BACKGROUND_COLOR = '#FFFFFF'
+PWA_APP_SCOPE = '/'
+PWA_APP_START_URL = '/'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/images/icon-512x512.png',
+        'sizes': '512x512'
+    }
+]
+
+
+
+
+
+
+
+
+
+
+
 
 # ✅ Channels (WebSocket)
 ASGI_APPLICATION = "shoping.asgi.application"
